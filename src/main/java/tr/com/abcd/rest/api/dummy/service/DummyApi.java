@@ -9,10 +9,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import tr.com.abcd.rest.api.dummy.model.Message;
 import tr.com.abcd.rest.api.model.MkkResponse;
 import tr.com.abcd.rest.api.model.ResponseBody;
 import tr.com.abcd.rest.api.model.ResponseHeader;
-import tr.com.abcd.rest.api.model.RestMessage;
 import tr.com.abcd.rest.api.util.ApiResponseMessage;
 import tr.com.abcd.rest.api.util.NotFoundException;
 
@@ -27,12 +27,12 @@ public  class DummyApi implements DummyApiService  {
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
 	@Override
-	public Response post(RestMessage body) throws NotFoundException {
+	public Response post(Message message) throws NotFoundException {
     	try {
 			ResponseHeader responseHeader = new ResponseHeader();
 			responseHeader.setMessageId(UUID.randomUUID().toString());
 			responseHeader.setReceiverMember("MKK");
-			responseHeader.setSenderReference(body.getRequestHeader().getSenderReference());;
+			responseHeader.setSenderReference(message.getRequestHeader().getSenderReference());;
 			
 			ResponseBody responseBody = new ResponseBody();
 			responseBody.setResponseCode("0000");

@@ -13,19 +13,20 @@
 package tr.com.abcd.rest.api.dummy.model;
 
 import java.util.Objects;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import tr.com.abcd.rest.api.model.RequestHeader;
 import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
- * RequestBody
+ * Message
  */
-public class RequestBody   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-12-22T17:22:12.592Z[GMT]")public class Message   {
+  @JsonProperty("requestHeader")
+  private RequestHeader requestHeader = null;
+
   @JsonProperty("processDate")
   private String processDate = null;
 
@@ -38,7 +39,28 @@ public class RequestBody   {
   @JsonProperty("addDefCode")
   private String addDefCode = null;
 
-  public RequestBody processDate(String processDate) {
+  public Message requestHeader(RequestHeader requestHeader) {
+    this.requestHeader = requestHeader;
+    return this;
+  }
+
+  /**
+   * Get requestHeader
+   * @return requestHeader
+   **/
+  @JsonProperty("requestHeader")
+  @Schema(required = true, description = "")
+  @NotNull
+  @Valid
+  public RequestHeader getRequestHeader() {
+    return requestHeader;
+  }
+
+  public void setRequestHeader(RequestHeader requestHeader) {
+    this.requestHeader = requestHeader;
+  }
+
+  public Message processDate(String processDate) {
     this.processDate = processDate;
     return this;
   }
@@ -58,7 +80,7 @@ public class RequestBody   {
     this.processDate = processDate;
   }
 
-  public RequestBody isin(String isin) {
+  public Message isin(String isin) {
     this.isin = isin;
     return this;
   }
@@ -78,7 +100,7 @@ public class RequestBody   {
     this.isin = isin;
   }
 
-  public RequestBody mbrId(String mbrId) {
+  public Message mbrId(String mbrId) {
     this.mbrId = mbrId;
     return this;
   }
@@ -97,7 +119,7 @@ public class RequestBody   {
     this.mbrId = mbrId;
   }
 
-  public RequestBody addDefCode(String addDefCode) {
+  public Message addDefCode(String addDefCode) {
     this.addDefCode = addDefCode;
     return this;
   }
@@ -125,24 +147,26 @@ public class RequestBody   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RequestBody requestBody = (RequestBody) o;
-    return Objects.equals(this.processDate, requestBody.processDate) &&
-        Objects.equals(this.isin, requestBody.isin) &&
-        Objects.equals(this.mbrId, requestBody.mbrId) &&
-        Objects.equals(this.addDefCode, requestBody.addDefCode);
+    Message message = (Message) o;
+    return Objects.equals(this.requestHeader, message.requestHeader) &&
+        Objects.equals(this.processDate, message.processDate) &&
+        Objects.equals(this.isin, message.isin) &&
+        Objects.equals(this.mbrId, message.mbrId) &&
+        Objects.equals(this.addDefCode, message.addDefCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(processDate, isin, mbrId, addDefCode);
+    return Objects.hash(requestHeader, processDate, isin, mbrId, addDefCode);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RequestBody {\n");
+    sb.append("class Message {\n");
     
+    sb.append("    requestHeader: ").append(toIndentedString(requestHeader)).append("\n");
     sb.append("    processDate: ").append(toIndentedString(processDate)).append("\n");
     sb.append("    isin: ").append(toIndentedString(isin)).append("\n");
     sb.append("    mbrId: ").append(toIndentedString(mbrId)).append("\n");

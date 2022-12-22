@@ -13,17 +13,17 @@
 package tr.com.abcd.rest.api.model;
 
 import java.util.Objects;
-
-import javax.validation.Valid;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import tr.com.abcd.rest.api.model.CommonFaultFault;
 import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * CommonFault
  */
-public class CommonFault   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-12-22T17:22:12.592Z[GMT]")public class CommonFault   {
   @JsonProperty("error")
   private String error = null;
 

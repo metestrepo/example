@@ -13,18 +13,18 @@
 package tr.com.abcd.rest.api.model;
 
 import java.util.Objects;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import tr.com.abcd.rest.api.model.ResponseBody;
+import tr.com.abcd.rest.api.model.ResponseHeader;
 import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * MkkResponse
  */
-public class MkkResponse   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-12-22T17:22:12.592Z[GMT]")public class MkkResponse   {
   @JsonProperty("responseHeader")
   private ResponseHeader responseHeader = null;
 
@@ -52,18 +52,17 @@ public class MkkResponse   {
     this.responseHeader = responseHeader;
   }
 
-  public MkkResponse response(ResponseBody responseBody) {
+  public MkkResponse responseBody(ResponseBody responseBody) {
     this.responseBody = responseBody;
     return this;
   }
 
   /**
-   * Get response
-   * @return response
+   * Get responseBody
+   * @return responseBody
    **/
   @JsonProperty("responseBody")
-  @Schema(required = true, description = "")
-  @NotNull
+  @Schema(description = "")
   @Valid
   public ResponseBody getResponseBody() {
     return responseBody;
