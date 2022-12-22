@@ -1,0 +1,209 @@
+openapi: 3.0.3
+info:
+  title: Swagger Dummy - OpenAPI 3.0
+  description: |-
+    This is a sample request
+  termsOfService: http://www.abcd.com.tr/terms/
+  contact:
+    name: İletişim Formu
+    url: https://www.abcd.com.tr/iletisim-formu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8800/api
+tags:
+  - name: ISIN
+    description: Uluslararası Kıymet Tanım Numarası
+paths:
+  /dummy:
+    post:
+      tags:
+        - Dummy
+      summary: Dummy Order
+      description: Dummy Order
+      operationId: dummyOrder
+      requestBody:
+        description: Insert Dummy Order
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/message'
+        required: true    
+      responses:
+        '200':
+          description: Succses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mkkResponse'
+        '500':
+          description: Internal System Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commonFault'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Service not found
+        '405':
+          description: Validation exception
+      security:
+        - oi_auth:
+            - write:oi
+            - read:oi
+components:
+  schemas:
+    commonFault:
+      type: object
+      properties:
+        error:
+          type: string
+        Fault:
+          type: object
+          properties:
+            faultcode:
+              type: string
+            faultstring:
+              type: string
+            faultactor:
+              type: string
+            detail:
+              type: object
+              properties: {}
+    message:
+      type: object
+      properties:
+        requestHeader:
+          $ref: '#/components/schemas/requestHeader'
+        processDate:
+          $ref: '#/components/schemas/date'
+        isin:
+          $ref: '#/components/schemas/isin'
+        mbrId:
+          $ref: '#/components/schemas/memberId'
+        addDefCode:
+          $ref: '#/components/schemas/addDefCode'
+      required:
+        - requestHeader
+        - processDate
+        - isin
+        - tradesInfo
+    mkkResponse:
+      type: object
+      properties:
+        responseHeader:
+          $ref: '#/components/schemas/responseHeader'
+        responseBody:
+          $ref: '#/components/schemas/responseBody'
+      required:
+        - responseHeader
+        - response
+    requestHeader:
+      type: object
+      properties:
+        senderReference:
+          $ref: '#/components/schemas/senderReference'
+        senderMember:
+          $ref: '#/components/schemas/senderMember'
+        sender:
+          $ref: '#/components/schemas/sender'          
+      required:
+        - senderReference
+        - senderMember
+        - sender
+    date:
+      description: >-
+        yyyyaagg formatinda tarih bilgisi. Burada y=yil, a=ay, g=gundur. Ornek:
+        "20060417". 1900-2999 yil araligini kabul eder. Tek haneli ay ve gun
+        degerlerinin basina 0 eklenmelidir. Ornegin 5. ay olan Mayis icin 05
+        kullanilmalidir.
+      type: string
+      pattern: '(19([0-9]{2})|2([0-9]{3}))(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0-1])'
+    isin:
+      description: >-
+        Kiymet Kodu. (I)nternational (S)ecurities (I)dentification (N)umber.
+        Ornek: TRAABANA92H8
+      type: string
+      pattern: '[A-Z0-9]{12}'
+    memberId:
+      description: Yatirimcinin takas uyesinde bulunan yatirim hesap numarasi
+      type: string
+      pattern: '[A-Z0-9]*'
+      minLength: 3
+      maxLength: 8
+    addDefCode:
+      description: 'Ek tanim kodu. Ornek: A1 , A2 vb.'
+      type: string
+      pattern: '[A-Z0-9]*'
+      minLength: 0
+      maxLength: 2
+    responseHeader:
+      type: object
+      properties:
+        senderReference:
+          $ref: '#/components/schemas/senderReference'
+        receiverMember:
+          $ref: '#/components/schemas/senderMember'
+        messageId:
+          $ref: '#/components/schemas/messageId'
+      required:
+        - senderReference
+        - receiverMember
+    responseBody:
+      type: object
+      properties:
+        responseCode:
+          $ref: '#/components/schemas/errorCode'
+        responseDesc:
+          $ref: '#/components/schemas/description'
+      required:
+        - responseCode
+        - responseDesc
+    senderReference:
+      type: string
+      minLength: 1
+      maxLength: 255
+    senderMember:
+      type: string
+      pattern: '[A-Z0-9]*'
+      minLength: 3
+      maxLength: 8
+    sender:
+      type: string
+      pattern: '[A-Z0-9]*'
+      minLength: 3
+      maxLength: 10
+      example: XYZ991
+    messageId:
+      description: |-
+        Mesaj numarasi
+      type: string
+      pattern: '[0-9]{1,15}'
+      minLength: 1
+      maxLength: 15
+    errorCode:
+      description: Hata kodu
+      type: string
+      pattern: '[A-Z0-9]*'
+      minLength: 3
+      maxLength: 5
+    description:
+      description: Aciklama
+      type: string
+      minLength: 0
+      maxLength: 255
+  securitySchemes:
+    oi_auth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://www.abcd.com.tr/oauth/token
+          scopes:
+            write:oi: modify oi services in your account
+            read:oi: read oi services

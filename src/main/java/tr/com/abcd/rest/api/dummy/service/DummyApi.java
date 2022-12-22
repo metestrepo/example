@@ -31,7 +31,7 @@ public  class DummyApi implements DummyApiService  {
     	try {
 			ResponseHeader responseHeader = new ResponseHeader();
 			responseHeader.setMessageId(UUID.randomUUID().toString());
-			responseHeader.setReceiverMember("MKK");
+			responseHeader.setReceiverMember("d");
 			responseHeader.setSenderReference(message.getRequestHeader().getSenderReference());;
 			
 			ResponseBody responseBody = new ResponseBody();
